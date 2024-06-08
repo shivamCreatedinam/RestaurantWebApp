@@ -1,15 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-import { Scanner } from './Scanner'
+// App.js
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom'; // Import BrowserRouter
+import Home from './components/Home';
 
-function App() {
-
+const App = () => {
   return (
-    <>
-    <h1 className='my-5 text-center display-2'>QR Code Reader Generator</h1>
-     <Scanner/>
-    </>
-  )
-}
+    <Router> {/* Wrap the entire application with BrowserRouter */}
+      <Home />
+    </Router>
+  );
+};
 
-export default App
+export default App;
