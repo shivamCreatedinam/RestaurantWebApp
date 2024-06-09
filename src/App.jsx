@@ -1,13 +1,19 @@
 import { useState } from 'react'
 import './App.css'
-import { Scanner } from './Scanner'
+import OpenPage from './Component/openPage'
+import SplashOne from './Component/splashOne'
+import SplashTwo from './Component/splashTwo'
+import SplashThree from './Component/splashThree'
+
 
 function App() {
 
   return (
     <>
-    <h1 className='my-5 text-center display-2'>QR Code Reader Generator</h1>
-     <Scanner/>
+   <OpenPage/>
+   <SplashOne/>
+   <SplashTwo/>
+   <SplashThree/>
     </>
   )
 }
