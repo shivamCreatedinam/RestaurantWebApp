@@ -1,6 +1,19 @@
 import React, { useState, useRef, useCallback } from 'react';
-import QrScanner from "qr-scanner";
-import { QrReader } from '@blackbox-vision/react-qr-reader';
+// import QrScanner from "qr-scanner";
+// import QrReader from 'reactjs-qr-reader';
+
+
+
+
+// "react-qr-scanner": "^1.0.0-alpha.11",
+
+
+// import { QrReader } from 'react-qr-reader';
+// "react-qr-reader": "^3.0.0-beta-1",
+
+// "qr-scanner": "^1.4.2",
+// "react-qr-scanner": "^1.0.0-alpha.11",
+
 
 export const Scanner = () => {
   const [file, setFile] = useState(null);
