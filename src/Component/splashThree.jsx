@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import desktop from "../assets/Group 4.png"
+import desktop from "../assets/group7.png"
 function SplashThree() {
 
     const [selectedTab, setSelectedTab] = useState("Let's Start!");
@@ -15,11 +15,11 @@ function SplashThree() {
                     </div>
                 </div>
 
-                <div className="font-bold text-[15px] -mt-[68%] ml-[130px] ">
+                <div className="font-bold text-[18px] -mt-[62%] ml-[110px] ">
                     <h1>Be an influencer!</h1>
                 </div>
 
-                <div className= {`flex justify-center mt-[20%] ml-[130px] text-white font-semibold bg-orange-500 rounded-md w-[100px] text-[14px] px-[10px] shadow-sm shadow-orange-500 ${selectedTab === "Let's Start!" && "border-b-[4px]  border-orange-600 "} `} >
+                <div className= {`flex justify-center mt-[20%] ml-[130px] text-white font-semibold bg-orange-500 rounded-md w-[100px] text-[15px] px-[12px] shadow-sm shadow-orange-500 ${selectedTab === "Let's Start!" && "border-b-[4px]  border-orange-600 "} `} >
                     <button    onClick={() => handleTabClick("Let's Start!")}>
                         Let's Start!
                     </button>

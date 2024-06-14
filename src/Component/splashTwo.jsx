@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import laptop from "../assets/pane.png"
+import laptop from "../assets/pana2.png"
 function SplashTwo() {
     const [selectedButton, setSelectedButton] = useState("SKIP");
     const handleTabClick = (buttonName) => {
@@ -14,7 +14,7 @@ function SplashTwo() {
                 </div>
                 </div>
 
-                <div className= "font-bold text-[15px] -mt-[65%] ml-[130px] ">
+                <div className= "font-bold text-[18px] -mt-[57%] ml-[105px] ">
                    <h1>Give Quality reviews</h1> 
                 </div>
 
