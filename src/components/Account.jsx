@@ -1,90 +1,57 @@
 import React, { useState, useRef } from 'react';
 import logo from '../assets/logo.png';
 import pizza from '../assets/pizza.png';
-// import Cropper from 'react-easy-crop';
+import ok from '../assets/ok.png'
+import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from "react-hot-toast";
+import axios from 'axios';
 
-// for image
 
+const SuccessPopup = ({ onClose }) => (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg text-center w-80">
+      <img src={ok} alt="Success" className="w-36 mx-auto mb-4" />
+      <h2 className="text-2xl font-bold mb-2">Success!</h2>
+      <p className='-mb-0.5'>Your Data has been saved</p>
+      <p className='text-xs'>(Your data is being reviewed)</p>
+      <button
+        onClick={onClose}
+        className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-6 rounded-2xl"
+      >
+        OK
+      </button>
+    </div>
+  </div>
+);
 
 export const Account = () => {
 
-  const [editForm, setEditForm] = useState(false)
+  // for success popup 
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    validateForm();
+    
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
+    navigate('/account');
+  };
 
 
+
+  // for edit profile
+  const [isVisible, setIsVisible] = useState(false)
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
 
 
-  // // upload image
-  // const [selectedImage, setSelectedImage] = useState(logo);
-  //   const [croppedImage, setCroppedImage] = useState(null);
-  //   const [crop, setCrop] = useState({ x: 0, y: 0 });
-  //   const [zoom, setZoom] = useState(1);
-  //   const [croppedArea, setCroppedArea] = useState(null);
-  //   const [isCropping, setIsCropping] = useState(false);
-
-  //   const handleFileChange = (event) => {
-  //     const file = event.target.files[0];
-  //     if (file) {
-  //       const reader = new FileReader();
-  //       reader.onload = () => {
-  //         setSelectedImage(reader.result);
-  //         setIsCropping(true);
-  //       };
-  //       reader.readAsDataURL(file);
-  //     }
-  //   };
-
-  //   const onCropComplete = (croppedArea, croppedAreaPixels) => {
-  //     setCroppedArea(croppedAreaPixels);
-  //   };
-
-  //   const showCroppedImage = async () => {
-  //     try {
-  //       const croppedImage = await getCroppedImg(selectedImage, croppedArea);
-  //       setCroppedImage(croppedImage);
-  //       setIsCropping(false);
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   };
-
-  //   const getCroppedImg = (imageSrc, crop) => {
-  //     const image = new Image();
-  //     image.src = imageSrc;
-  //     const canvas = document.createElement('canvas');
-  //     const ctx = canvas.getContext('2d');
-  //     const scaleX = image.naturalWidth / image.width;
-  //     const scaleY = image.naturalHeight / image.height;
-  //     canvas.width = crop.width;
-  //     canvas.height = crop.height;
-  //     ctx.drawImage(
-  //       image,
-  //       crop.x * scaleX,
-  //       crop.y * scaleY,
-  //       crop.width * scaleX,
-  //       crop.height * scaleY,
-  //       0,
-  //       0,
-  //       crop.width,
-  //       crop.height
-  //     );
-  //     return new Promise((resolve, reject) => {
-  //       canvas.toBlob((blob) => {
-  //         if (!blob) {
-  //           reject(new Error('Canvas is empty'));
-  //           return;
-  //         }
-  //         blob.name = 'croppedImage.png';
-  //         const fileUrl = window.URL.createObjectURL(blob);
-  //         resolve(fileUrl);
-  //       }, 'image/png');
-  //     });
-  //   };
-
-  //   // image ends here
+  //  image  here
   const inputRef = useRef(null);
   const [image, setImage] = useState("");
 
@@ -96,6 +63,73 @@ export const Account = () => {
     const file = e.target.files[0];
     setImage(file);
   }
+
+
+
+  // Form validation
+  const [username, SetUserName] = useState("")
+  const [phone, SetPhone] = useState("")
+  const [email, SetEmail] = useState("")
+  const [address, SetAddress] = useState("")
+
+  const handleUserName = (e) => {
+    const value = e?.target.value;
+    if (value !== null);
+    SetUserName(value)
+  }
+
+  const handlePhone = (e) => {
+    const value = e?.target.value;
+    if (value !== null);
+    SetPhone(value)
+  }
+
+  const handleEmail = (e) => {
+    const value = e?.target.value;
+    if (value !== null);
+    SetEmail(value)
+  }
+
+  const handleAddress = (e) => {
+    const value = e?.target.value;
+    if (value !== null);
+    SetAddress(value)
+  }
+
+  const validateForm = () => {
+    if (!username.trim()) {
+      toast.error("Username is required");
+    } else if (!phone.trim()) {
+      toast.error("Phone number is required");
+    } else if (!email.trim()) {
+      toast.error("Email is required");
+    } else if (!address.trim()) {
+      toast.error("Address is required");
+    } else {
+      registerEvent();
+    }
+  }
+
+  const registerEvent = async () => {
+    const data = {
+      username: username,
+      phone: phone,
+      email: email,
+      address: address,
+      image: image
+    }
+    await axios.post("https://example.com", data)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      setIsPopupVisible(true);
+  }
+
+
+
 
 
   return (
@@ -120,7 +154,7 @@ export const Account = () => {
       </div>
       <hr />
       <div className='p-3 flex flex-col gap-3'>
-        <div className='flex gap-4 border border-gray-600 p-2 rounded-lg'>
+        <div className='flex gap-4 border border-gray-600 p-2 rounded-lg' onClick={() => toggleVisibility()}>
           <div className='flex justify-center items-center ml-2'><i className="fa-solid fa-xl fa-pencil text-orange-500 "></i></div>
           <div className='flex justify-center items-center pt-2' ><p className='font-bold text-xl'>Edit Profile</p></div>
         </div>
@@ -136,97 +170,121 @@ export const Account = () => {
 
 
 
+      <div
+        className={`fixed inset-0 bg-white bg-opacity-90  p-4 z-50 transform transition-transform duration-500 ${isVisible ? 'translate-x-0' : 'translate-x-full'
+          }`}
+      >
+
+        <div className=''> {/*  Need to remove this div  */}
+          <div className='p-2'>
+            <div className="w-full flex justify-start items-center gap-24 ">
+              <div className="text-orange-500 text-xl cursor-pointer" onClick={() => toggleVisibility()}>
+                <i className="fa-solid fa-arrow-left"></i>
+              </div>
+              <div className="">
+                <h2 className="text-lg font-bold">Edit Profile</h2>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+
+        <div className='flex justify-center items-center mt-4 mb-4'>
+          <div className='relative'>
+            <div className='flex justify-center items-center rounded-full bg-orange-500 w-24 h-24'>
 
 
-      <div className=''> {/*  Need to remove this div  */}
-        <div className='p-3'>
-          <div className="w-full flex justify-start items-center gap-20 ">
-            <div className="text-orange-500 text-xl cursor-pointer" onClick={toggleVisibility}>
-              <i className="fa-solid fa-arrow-left"></i>
+              {image ?
+                <img src={URL.createObjectURL(image)} alt="Profile" className='w-20 h-20 object-cover rounded-full' />
+                : <img src={logo} alt="Profile" className='w-20 h-20 object-cover rounded-full' />
+              }
+
             </div>
-            <div className="ml-4">
-              <h2 className="text-lg font-bold">Edit Profile</h2>
-            </div>
+            <label htmlFor="file-input" className='absolute bottom-0 right-0 cursor-pointer'>
+              <i onClick={() => handleImageClick} className="fa-solid fa-camera text-white text-xl bg-blue-500 rounded-full p-2"></i>
+            </label>
+            <input
+              id="file-input"
+              type="file"
+              // accept="image/*"
+              onChange={(e) => handleImageChange(e)}
+              className='hidden'
+              ref={inputRef}
+            />
+
           </div>
 
         </div>
-        <hr />
-      </div>
+        <div className="w-full max-w-xs  ">
+          <form className="bg-white rounded px-2 pt-6 pb-8 mb-4" id="profileForm" onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                Full Name
+              </label>
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="John Doe" onChange={(e) => handleUserName(e)} />
+            </div>
+            <div className="mb-1">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                Phone Number
+              </label>
+              <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="number" type="password" placeholder="081234567890" onChange={(e) => handlePhone(e)} />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                Email
+              </label>
+              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="info@abc.com" onChange={(e) => handleEmail(e)} />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+                Address
+              </label>
+              <textarea
+                className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg resize-none"
+                id="address"
+                placeholder="Jalan ABC no 1, Kelapa Gading, Jakarta"
+                rows="4"
+                onChange={(e) => handleAddress(e)}
+              ></textarea>
+            </div>
 
-      <div className='flex justify-center items-center mt-4 mb-4'>
-        <div className='relative'>
-          <div className='flex justify-center items-center rounded-full bg-orange-500 w-24 h-24'>
+            <div className="bg-white shadow p-4 mb-40">
+              <button
+                className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded w-full"
+                type="submit"
+              >
+                Update Data
+              </button>
+              <Toaster
+                position="top-center"
+                reverseOrder={false}
+                gutter={8}
+                containerClassName=""
+                containerStyle={{}}
+                toastOptions={{
+                  // Define default options
+                  className: "",
+                  duration: 5000,
+                  style: {
+                    background: "#363636",
+                    color: "#fff",
+                  },
 
-
-            {image ?
-              <img src={URL.createObjectURL(image)} alt="Profile" className='w-20 h-20 object-cover rounded-full' />
-              : <img src={logo} alt="Profile" className='w-20 h-20 object-cover rounded-full' />
-            }
-
-          </div>
-          <label htmlFor="file-input" className='absolute bottom-0 right-0 cursor-pointer'>
-            <i onClick={() => handleImageClick(e)} className="fa-solid fa-camera text-white text-xl bg-blue-500 rounded-full p-2"></i>
-          </label>
-          <input
-            id="file-input"
-            type="file"
-            // accept="image/*"
-            onChange={handleImageChange}
-            className='hidden'
-            ref={inputRef}
-          />
-
+                  // Default options for specific types
+                  success: {
+                    duration: 3000,
+                    theme: {
+                      primary: "green",
+                      secondary: "black",
+                    },
+                  },
+                }}
+              />
+            </div>
+          </form>
         </div>
-
+        {isPopupVisible && <SuccessPopup onClose={() => handleClosePopup()} />}
       </div>
-      <div class="w-full max-w-xs mb-40">
-        <form class="bg-white rounded px-8 pt-6 pb-8 mb-4">
-          <div class="mb-3">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-              Full Name
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="John Doe" />
-          </div>
-          <div class="mb-1">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-              Phone Number
-            </label>
-            <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="number" type="password" placeholder="081234567890" />
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-              Email
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="email" placeholder="info@abc.com" />
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
-              Address
-            </label>
-            <textarea
-              class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg resize-none"
-              id="address"
-              placeholder="Jalan ABC no 1, Kelapa Gading, Jakarta"
-              rows="4"
-            ></textarea>
-          </div>
-
-          <div class="bg-white shadow p-4 mb-40">
-    <button
-      class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded w-full"
-      type="submit"
-    >
-      Update Data
-    </button>
-  </div>
-
-        </form>
-
-      </div>
-   
-
-
-
 
     </>
   );
