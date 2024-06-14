@@ -7,11 +7,13 @@ import { Scanner } from './Scanner';
 import { Account } from './Account';
 import { Nav } from './Nav';
 import { EditProfile } from './EditProfile';
+import { EditProfileFinal } from './EditProfileFinal';
 
 const Home = () => {
   return (
     <div className="container ">
-      <EditProfile/>
+      <EditProfileFinal/>
+      {/* <EditProfile/> */}
       {/* <Routes>
         <Route path="/" element={<MainScreen />} />
         <Route path="/map" element={<Map />} />

@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import banner from '../assets/banner.png'
 import vector from '../assets/fork.png'
 import upload from '../assets/upload.png'
-import video from '../assets/video.mp4'
+import logo from '../assets/logo.png'
 export const EditProfile = () => {
 
 
@@ -29,7 +29,7 @@ export const EditProfile = () => {
         const file = e.target.files[0];
         setImage2(file);
     }
-
+    const duration = "10:00"
     return (
         <div>
             {/* screen - 1 */}
@@ -57,7 +57,7 @@ export const EditProfile = () => {
                         <div className='flex justify-center items-center pt-2' ><p className='text-md font-semibold'>Get acknowledged by restaurants</p></div>
                     </div>
                 </div>
-                <div className='absolute  w-full pr-10'>  {/* bottom-10 */}
+                <div className='flex justify-center items-center'>  {/* absolute and bottom-10 */}
                     <button className='w-full h-8 bg-orange-500 rounded-lg text-white font-semibold '>Join Now!</button>
                 </div>
             </div>
@@ -107,14 +107,14 @@ export const EditProfile = () => {
                         ref={inputRef2}
                     />
                 </div>
-                <div className='absolute  w-full pr-10'>  {/* bottom-10 */}
+                <div className='flex justify-center items-center'>  {/* absolute and bottom-10 */}
                     <button className='w-full h-8 bg-orange-500 rounded-lg text-white font-semibold'>Update Data</button>
                 </div>
             </div>
 
             {/* screen - 3 */}
 
-
+{/* 
             <div className='mt-40 p-2'>
                 <div className='flex gap-20 -mb-1'>
                     <div className="text-orange-500 text-xl cursor-pointer" onClick={() => toggleVisibility()}>
@@ -124,13 +124,64 @@ export const EditProfile = () => {
                         <h2 className='text-xl font-bold'>Mac Food Influencer</h2>
                     </div>
                 </div>
+
+
             </div>
             <hr />
+            <div className="mt-4 p-2 mb-3">
+                <input
+                    type="text"
+                    placeholder="🔍    Search here"
+                    className="w-full p-2 border rounded-lg bg-[#f1f1f1]"
+                />
+            </div>
+            <div className='w-full p-2 mb-3 flex justify-center items-center'>
+                <button className='w-full h-8 bg-orange-500 rounded-lg text-white font-semibold'>Upload new video</button>
+            </div>
+            <div className='mt-3 p-2'>
+                <div className='mb-3'>
+                    <h2 className='text-[22px] font-semibold '>Your Videos</h2>
+                </div>
+                <div className="video-container">
+                    <video controls>
+                        <source src={video} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    <div className="video-details mt-2 flex gap-2">
+                        <div>
+                            <img src={logo2} alt="" className='w-10' />
+                        </div>
+                        <div className='leading-0'>
+                            <div className="video-title">
+                                <h6 className=''>The Italian Food Vibe is  Crazy!</h6>
+                            </div>
+                            <div className="video-description text-sm">
+                                Reviewer A
+                            </div>
+                        </div>
+                        <div className='ml-12'>
+                            <button>::</button>
+                        </div>
+                    </div>
+                </div>
 
+            </div> */}
 
+            {/* screen - 4
+            <div className='mt-40 p-2'>
+                <div className='flex gap-20 -mb-1'>
+                    <div className="text-orange-500 text-xl cursor-pointer" onClick={() => toggleVisibility()}>
+                        <i className="fa-solid fa-arrow-left"></i>
+                    </div>
+                    <div>
+                        <h2 className='text-xl font-bold'>Upload New Video</h2>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div>
 
-
-
+            </div> */}
 
 
 
