@@ -14,7 +14,7 @@ function SplashOne() {
                 </div>
                 </div>
 
-                <div className= "font-bold text-[15px] -mt-[68%] ml-[75px] ">
+                <div className= "font-bold text-[18px] -mt-[62%] ml-[75px] ">
                    <h1>Find restaurant near you</h1> 
                 </div>
 
